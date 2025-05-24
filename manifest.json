@@ -1,32 +1,18 @@
 {
-    "manifest_version": 3,
-    "name": "OpenAlex Plugin",
-    "version": "1.0",
-    "description": "Браузерное расширение с PyScript для работы с OpenAlex",
-    "permissions": ["storage", "activeTab"],
-    "host_permissions": ["https://api.openalex.org/*"],
-    "action": {
-      "default_popup": "index.html",
-      "default_icon": "icon.png"
-    },
-    "background": {
-      "service_worker": "background.js"
-    },
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["popup.js"],
-        "css": ["styles.css"]
-      }
-    ],
-    "web_accessible_resources": [
-      {
-        "resources": ["pyscript.js", "pyscript_main.py"],
-        "matches": ["<all_urls>"]
-      }
-    ],
-    "content_security_policy": {
-      "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
-    }
+  "manifest_version": 3,
+  "name": "OpenAlex Plugin",
+  "version": "1.0",
+  "description": "Браузерное расширение для работы с OpenAlex",
+  "permissions": ["storage"],
+  "host_permissions": ["https://api.openalex.org/*"],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "icon.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
   }
-  
+}

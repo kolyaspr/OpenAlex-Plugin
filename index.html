@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenAlex Plugin</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="popup.js"></script>
-    <script defer src="pyscript.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OpenAlex Plugin</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="popup.js"></script>
 </head>
 <body>
-    <h1>OpenAlex PyScript</h1>
-    <py-script src="pyscript_main.py"></py-script>
+  <div class="container">
+    <button id="create-base-btn">Создать новую базу</button>
+    
+    <div id="main-section">
+      <div id="user-info">
+        <div id="user-icon">👤</div>
+        <div id="user-name">Профиль</div>
+      </div>
+      
+      <h2>Поиск похожих статей</h2>
+      <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+        <input type="text" id="article-url" placeholder="Введите название или ссылку на статью" autocomplete="off" />
+      </div>
+      <button id="search-btn">Подобрать статьи</button>
+      
+      <div id="results"></div>
+      <div id="saved-list" class="saved-list"></div>
+    </div>
+  </div>
 </body>
 </html>
