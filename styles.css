@@ -278,3 +278,68 @@ body {
 .fade-in {
   animation: fadeIn 0.3s ease-out;
 }
+
+/* Добавь это в конец файла */
+
+/* Исправленное модальное окно */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 320px; /* Фиксированная ширина */
+  border-radius: var(--border-radius);
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box; /* Важно! */
+}
+
+/* Исправленные поля ввода */
+.modal-content .input-field {
+  width: calc(100% - 28px); /* Учитываем padding */
+  box-sizing: border-box;
+}
+
+/* Группа год/месяц */
+.filter-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.filter-row .input-group {
+  flex: 1;
+  min-width: 0; /* Фикс переполнения */
+}
+
+/* Главное поле поиска */
+#article-url {
+  width: calc(100% - 28px); /* Учитываем padding */
+  box-sizing: border-box;
+  border-radius: var(--border-radius) !important;
+  padding: 10px 14px !important;
+}
+
+/* Исправления для маленького окна */
+@media (max-width: 340px) {
+  .filter-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .modal-content {
+    padding: 15px;
+  }
+}

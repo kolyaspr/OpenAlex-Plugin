@@ -52,92 +52,94 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }, 300));
 
-  // Модальное окно расширенного поиска
-  function showAdvancedSearchModal() {
-    const modal = document.createElement("div");
-    modal.className = "modal-overlay";
-    modal.innerHTML = `
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title">Расширенный поиск</h3>
-          <button class="close-btn">&times;</button>
-        </div>
-        <div class="search-filters">
-          <div class="input-group">
-            <label for="article-query" class="input-label">Ключевые слова</label>
-            <input 
-              type="text" 
-              id="article-query" 
-              class="input-field" 
-              placeholder="Название, тема или ключевые слова"
-              autofocus
-            />
-          </div>
-          
-          <div class="filter-row">
-            <div class="input-group">
-              <label for="year-filter" class="input-label">Год</label>
-              <input 
-                type="number" 
-                id="year-filter" 
-                class="input-field" 
-                placeholder="Например: 2023"
-                min="1900"
-                max="${new Date().getFullYear()}"
-              />
-            </div>
-            
-            <div class="input-group">
-              <label for="month-filter" class="input-label">Месяц</label>
-              <select id="month-filter" class="input-field">
-                <option value="">Любой</option>
-                ${Array.from({length: 12}, (_, i) => `
-                  <option value="${i+1}">
-                    ${new Date(0, i).toLocaleString('ru', {month: 'long'})}
-                  </option>
-                `).join('')}
-              </select>
-            </div>
-          </div>
-          
-          <div class="input-group">
-            <label for="topic-filter" class="input-label">Тематика</label>
-            <input 
-              type="text" 
-              id="topic-filter" 
-              class="input-field" 
-              placeholder="Например: Artificial Intelligence"
-            />
-          </div>
-        </div>
-        <button id="advanced-search-btn" class="btn" style="width: 100%; margin-top: 12px;">
-          <span>🔍</span> Найти похожие статьи
-        </button>
+// Замени функцию showAdvancedSearchModal на эту:
+
+function showAdvancedSearchModal() {
+  const modal = document.createElement("div");
+  modal.className = "modal-overlay";
+  modal.innerHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Расширенный поиск</h3>
+        <button class="close-btn">&times;</button>
       </div>
-    `;
-    document.body.appendChild(modal);
-
-    // Закрытие модального окна
-    modal.querySelector(".close-btn").addEventListener("click", () => {
-      modal.remove();
-    });
-
-    // Обработка поиска
-    modal.querySelector("#advanced-search-btn").addEventListener("click", async () => {
-      const query = modal.querySelector("#article-query").value.trim();
-      const year = modal.querySelector("#year-filter").value;
-      const topic = modal.querySelector("#topic-filter").value.trim();
-      const month = modal.querySelector("#month-filter").value;
       
-      if (!query) {
-        showNotification("Введите хотя бы ключевые слова для поиска", 'warning');
-        return;
-      }
+      <div class="input-group" style="margin-bottom: 12px;">
+        <label for="article-query" class="input-label">Ключевые слова</label>
+        <input 
+          type="text" 
+          id="article-query" 
+          class="input-field" 
+          placeholder="Название или ключевые слова"
+          autofocus
+        />
+      </div>
+      
+      <div class="filter-row">
+        <div class="input-group">
+          <label for="year-filter" class="input-label">Год</label>
+          <input 
+            type="number" 
+            id="year-filter" 
+            class="input-field" 
+            placeholder="Например: 2023"
+            min="1900"
+            max="${new Date().getFullYear()}"
+          />
+        </div>
+        
+        <div class="input-group">
+          <label for="month-filter" class="input-label">Месяц</label>
+          <select id="month-filter" class="input-field">
+            <option value="">Любой</option>
+            ${Array.from({length: 12}, (_, i) => `
+              <option value="${i+1}">
+                ${new Date(0, i).toLocaleString('ru', {month: 'short'})}
+              </option>
+            `).join('')}
+          </select>
+        </div>
+      </div>
+      
+      <div class="input-group" style="margin-top: 12px;">
+        <label for="topic-filter" class="input-label">Тематика</label>
+        <input 
+          type="text" 
+          id="topic-filter" 
+          class="input-field" 
+          placeholder="Например: Artificial Intelligence"
+        />
+      </div>
+      
+      <button id="advanced-search-btn" class="btn" style="width: 100%; margin-top: 16px;">
+        <span>🔍</span> Найти похожие статьи
+      </button>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
 
-      modal.remove();
-      await performAdvancedSearch(query, year, month, topic);
-    });
-  }
+  // Закрытие модального окна
+  modal.querySelector(".close-btn").addEventListener("click", () => {
+    modal.remove();
+  });
+
+  // Обработка поиска
+  modal.querySelector("#advanced-search-btn").addEventListener("click", async () => {
+    const query = modal.querySelector("#article-query").value.trim();
+    if (!query) {
+      showNotification("Введите ключевые слова для поиска", 'warning');
+      return;
+    }
+    
+    const year = modal.querySelector("#year-filter").value;
+    const topic = modal.querySelector("#topic-filter").value.trim();
+    const month = modal.querySelector("#month-filter").value;
+    
+    modal.remove();
+    await performAdvancedSearch(query, year, month, topic);
+  });
+}
 
   // Выполнение расширенного поиска
   async function performAdvancedSearch(query, year, month, topic) {
