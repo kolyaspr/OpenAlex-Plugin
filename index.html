@@ -3,29 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OpenAlex Plugin</title>
+  <title>OpenAlex Finder</title>
   <link rel="stylesheet" href="styles.css" />
   <script defer src="popup.js"></script>
 </head>
 <body>
-  <div class="container">
-    <button id="create-base-btn">Создать новую базу</button>
-    
-    <div id="main-section">
-      <div id="user-info">
-        <div id="user-icon">👤</div>
-        <div id="user-name">Профиль</div>
-      </div>
-      
-      <h2>Поиск похожих статей</h2>
-      <div style="position: relative; width: 100%; display: flex; justify-content: center;">
-        <input type="text" id="article-url" placeholder="Введите название или ссылку на статью" autocomplete="off" />
-      </div>
-      <button id="search-btn">Подобрать статьи</button>
-      
-      <div id="results"></div>
-      <div id="saved-list" class="saved-list"></div>
+  <div class="container fade-in">
+    <div class="header">
+      <div class="user-icon">👤</div>
+      <div class="user-name">OpenAlex Finder</div>
     </div>
+
+    <button id="create-base-btn" class="btn btn-secondary">
+      <span>🛠️</span> Создать новую базу
+    </button>
+
+    <div class="search-section">
+      <div class="input-group">
+        <label for="article-url" class="input-label">Поиск статей</label>
+        <input 
+          type="text" 
+          id="article-url" 
+          class="input-field" 
+          placeholder="Введите название, DOI или URL статьи"
+        />
+      </div>
+      
+      <button id="search-btn" class="btn">
+        <span>🔍</span> Подобрать статьи
+      </button>
+    </div>
+
+    <div id="results" class="results-container"></div>
+    <div id="saved-list" class="saved-list"></div>
   </div>
 </body>
 </html>
